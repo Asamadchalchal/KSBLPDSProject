@@ -79,7 +79,7 @@ reviews_data = reviews_data.drop(["review_comment_title","review_comment_message
 """---orders_data---"""
 # print(orders_data.isna().sum())    # null values found in three coloums date, time colums
 
-#  we shall be dropping rows will null values as they are negligible 2965 out of 99441 rows i.e. less than 3 percent
+#  we shall be dropping rows with null values as they are negligible 2965 out of 99441 rows i.e. less than 3 percent
 
 # print(orders_data.shape) 
 
