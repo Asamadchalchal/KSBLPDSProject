@@ -14,6 +14,13 @@ Created on Tue Apr 25 10:14:16 2023
 import pandas as pd
 import numpy as np
 import datetime as dt
+import glob
+import os
+import calendar
+import matplotlib.pyplot as plt
+
+
+# YASIR EHTESHAM
 
 """---import all data sets---"""
 
@@ -179,3 +186,74 @@ orders_data['order_delivered_customer_date'] = pd.to_datetime(orders_data['order
 orders_data['order_estimated_delivery_date'] = pd.to_datetime(orders_data['order_estimated_delivery_date'])
 
 # dates standardized in all data frames
+
+
+#ABDUL SAMAD
+
+"""INSIGHT NUMBER 1"""
+
+orders_data["approval_dur(Hrs)"] = np.where(orders_data["order_status"] != "canceled", 
+                                              (orders_data["order_approved_at"] - orders_data["order_purchase_timestamp"]).astype('timedelta64[h]'), 
+                                              np.nan)
+
+"""INSIGHT NUMBER 2"""
+
+
+# print(orders_data[orders_data['order_status'] == 'canceled']['order_status'])
+canceled_orders = orders_data[orders_data["order_status"] == "canceled"][["order_status", "approval_dur(Hrs)"]]
+# print(canceled_orders)
+
+
+"""INSIGHT NUMBER 3"""
+
+orders_data["purchase Vs delivered(Days)"] = np.where(orders_data["order_status"] == "delivered", 
+                                                      (pd.to_datetime(orders_data["order_delivered_customer_date"]) - pd.to_datetime(orders_data["order_purchase_timestamp"])).dt.days, 
+                                                      np.nan)
+
+# orders_data["Purchase Vs Delivered(Days)"] = orders_data["Purchase Vs Delivered(Days)"].dt.days
+
+orders_data["month"]=pd.DatetimeIndex(orders_data["order_purchase_timestamp"]).month
+orders_data["month"]=orders_data['month'].apply(lambda x: calendar.month_abbr[x])
+# print(orders_data["month"].head(12))
+
+print(customer_data.columns)
+print(location_data.columns)
+
+
+"""PLOT NUMBER 1"""
+
+# monthly_orders = orders_data.groupby('month')['order_id'].count().reset_index(name='total_orders')
+# # reset_index creates a new index column and renames the count column to 'total_orders'
+
+# ax = monthly_orders.plot.bar(x='month', y='total_orders', rot=0)
+
+# ax.set_title('Monthly Sales')
+# plt.show()
+
+"""PLOT NUMBER 2"""
+
+# ordersbystatus = orders_data.groupby('order_status')['order_id'].count().reset_index(name='totalorderbystatus')
+# print(ordersbystatus)
+# # reset_index creates a new index column and renames the count column to 'total_orders'
+
+# os = ordersbystatus.plot.bar(x='order_status', y='totalorderbystatus', rot=0)
+# os.set_title('total order by order status')
+# plt.show()
+
+"""MERGING DATA"""
+
+merged_data = pd.merge(orders_data, customer_data, on='customer_id')
+
+# print(merged_data)
+# top_cities_by_order = merged_data['customer_city'].value_counts().nlargest(5)
+# # print(top_cities_by_order)
+
+"""PLOT NUMBER 3"""
+# oc = top_cities_by_order.plot.bar(x='customer_city', y='top_cities_by_order', rot=0)
+# oc.set_title('Total orders by city')
+# plt.show()
+
+"""INSIGHT NUMBER 4"""
+merged_data_geo = pd.merge(customer_data, location_data, left_on='customer_zip_code_prefix', right_on='geolocation_zip_code_prefix')
+# grouped_data = merged_data_geo.groupby(['geolocation_lat', 'geolocation_lng']).agg({'customer_id': 'nunique'}).reset_index()
+# grouped_data = grouped_data.rename(columns={'customer_id': 'customer_count'})
