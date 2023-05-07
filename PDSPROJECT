@@ -200,7 +200,7 @@ import datetime as dt
 
 
 # customer_reviews['review_answer_timestamp'] = pd.to_datetime(customer_reviews['review_answer_timestamp'])
-# order_items['shipping_limit_date'] = pd.to_datetime(order_items['shipping_limit_date'])
+# order_info['shipping_limit_date'] = pd.to_datetime(order_info['shipping_limit_date'])
 # orders_info['order_purchase_timestamp'] = pd.to_datetime(orders_info['order_purchase_timestamp'])
 # orders_info['order_approved_at'] = pd.to_datetime(orders_info['order_approved_at'])
 # orders_info['order_delivered_carrier_date'] = pd.to_datetime(orders_info['order_delivered_carrier_date'])
