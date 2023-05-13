@@ -1,5 +1,5 @@
 # KSBLPDSProject
-This is the main script file.
+This is the final script file for our project.
 
 Group members:
 1) Abdul Samad
