@@ -20,6 +20,6 @@ Operations performed (refer to comments for clarification):
 3) Dealing with duplicates
 4) Standardizing date columns
 5) Insights generated
-6) Plot created
+6) Plots created
 
 
