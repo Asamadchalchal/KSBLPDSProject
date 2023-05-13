@@ -170,8 +170,6 @@ location_data.drop_duplicates(inplace = True)
 # duplicates dealt with, in all data frames
 
 
-
-
 """---standardization---"""
 
 """---standardizing all date columns, converting them to datetime objects---"""
@@ -256,4 +254,73 @@ merged_data = pd.merge(orders_data, customer_data, on='customer_id')
 """INSIGHT NUMBER 4"""
 merged_data_geo = pd.merge(customer_data, location_data, left_on='customer_zip_code_prefix', right_on='geolocation_zip_code_prefix')
 # grouped_data = merged_data_geo.groupby(['geolocation_lat', 'geolocation_lng']).agg({'customer_id': 'nunique'}).reset_index()
-# grouped_data = grouped_data.rename(columns={'customer_id': 'customer_count'})
+
+
+# Ammar
+
+"""INSIGHT NUMBER 5"""
+
+#Customer Satisfaction Score = Sum of all Scores / Total Number of Respondents
+
+num_respondents = reviews_data['review_id'].count()
+
+sum_scores = reviews_data['review_score'].sum()
+
+customer_satisfaction_score = round(sum_scores/num_respondents)
+
+print('Customer Satisfaction Score:', customer_satisfaction_score)
+
+reviews_data = reviews_data.sort_values('review_answer_timestamp')
+
+# calculate the total score for each year
+yearly_scores = reviews_data.groupby(reviews_data['review_answer_timestamp'].dt.year)['review_score'].sum()
+
+# calculate the average score for each year
+yearly_average = reviews_data.groupby(reviews_data['review_answer_timestamp'].dt.year)['review_score'].mean().round(2)
+
+# print("Total score for each year:")
+# print(yearly_scores)
+# print("Average score for each year:")
+# print(yearly_average)
+
+"""PLOT NUMBER 4"""
+# Making a line plot with the average score for each year
+
+yearly_average.plot(kind='line')
+
+# set the title and axis labels
+plt.title('Average Score by Year')
+plt.xlabel('Year')
+plt.ylabel('Average Score')
+
+# show the plot
+plt.show()
+
+"""PLOT NUMBER 5"""
+# Making a bar plot for the average score of each year
+
+yearly_averages = {'2016':3.54, '2017':4.11, '2018':4.07}
+years = list(yearly_averages.keys())
+averages = list(yearly_averages.values())  
+bar_plot = plt.figure(figsize = (10, 5))
+ 
+# creating the bar plot
+plt.bar(years, averages, color ='maroon',
+        width = 0.4)
+ 
+plt.xlabel("Years")
+plt.ylabel("Average score")
+plt.title("Average score of each year")
+plt.show()
+
+
+"""INSIGHT NUMBER 6"""
+# Purchase Frequency = Total Number of Orders / Total Number of Unique Customers
+
+total_number_of_orders = orders_data['order_id'].count()
+
+num_of_uniq_cust = orders_data['customer_id'].nunique()
+
+purchase_frequency = total_number_of_orders / num_of_uniq_cust
+
+
