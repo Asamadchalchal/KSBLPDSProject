@@ -1,326 +1,96 @@
-echo "# KSBLPDSProject" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/Asamadchalchal/KSBLPDSProject.git
-git push -u origin main
-"""
-Created on Tue Apr 25 10:14:16 2023
+Spyder Editor
 
-@author: Yasir Ehtesham
+This is a temporary script file.
 """
 
-import pandas as pd
-import numpy as np
-import datetime as dt
-import glob
-import os
-import calendar
-import matplotlib.pyplot as plt
+# import pandas as pd
 
+# path = r"C:/Users/Hp/Desktop/pds project work files/olist_customers_dataset.csv"
 
-# YASIR EHTESHAM
+# data = pd.read_csv(path)
 
-"""---import all data sets---"""
+# df = data.dropna(axis = 0, how = 'any')
 
-#This dataset has information about the customer and its location
-customer_data = pd.read_csv('olist_customers_dataset.csv')
+# print ("Old data frame length:", len(data), "\nNew data frame length:", len(df), "\nNumber of rows with atleast 1 NA value: ", (len(data)-len(df)))
 
-#This dataset has information Brazilian zip codes and its lat/lng coordinates
-location_data = pd.read_csv('olist_geolocation_dataset.csv')
+# import pandas as pd
 
-#This dataset includes data about the items purchased within each order.
-order_items_data = pd.read_csv('olist_order_items_dataset.csv')
+# path = r"C:/Users/Hp/Desktop/pds project work files/olist_geolocation_dataset.csv"
 
-#This dataset includes data about the orders payment options.
-payments_data = pd.read_csv('olist_order_payments_dataset.csv')
+# data = pd.read_csv(path)
 
-#This dataset includes data about the reviews made by the customers.
-reviews_data = pd.read_csv('olist_order_reviews_dataset.csv')
+# df = data.dropna(axis = 0, how = 'any')
 
-#This is the core dataset
-orders_data = pd.read_csv('olist_orders_dataset.csv')
+# print ("Old data frame length:", len(data), "\nNew data frame length:", len(df), "\nNumber of rows with atleast 1 NA value: ", (len(data)-len(df)))
 
-#This dataset includes data about the products sold by Olist.
-product_data = pd.read_csv('olist_products_dataset.csv')
+# import pandas as pd
 
-#This dataset includes data about the sellers that fulfilled orders made at Olist.
-sellers_data = pd.read_csv('olist_sellers_dataset.csv')
+# path = r"C:/Users/Hp/Desktop/pds project work files/olist_order_items_dataset.csv"
 
-#Translates the product_category_name to english.
-translation_data = pd.read_csv('product_category_name_translation.csv')
+# data = pd.read_csv(path)
 
+# df = data.dropna(axis = 0, how = 'any')
 
+# print ("Old data frame length:", len(data), "\nNew data frame length:", len(df), "\nNumber of rows with atleast 1 NA value: ", (len(data)-len(df)))
 
+# import pandas as pd
 
-"""---dealing with null values---"""
+# path = r"C:/Users/Hp/Desktop/pds project work files/olist_order_payments_dataset.csv"
 
+# data = pd.read_csv(path)
 
+# df = data.dropna(axis = 0, how = 'any')
 
-"""---customer_data---"""
-# print(customer_data.isna().sum())    # no null values found
+# print ("Old data frame length:", len(data), "\nNew data frame length:", len(df), "\nNumber of rows with atleast 1 NA value: ", (len(data)-len(df)))
 
-"""---location_data---"""
-# print(location_data.isna().sum())    # no null valuesfound
 
-"""---order_items_data---"""
-# print(order_items_data.isna().sum())    # no null values found
+# import pandas as pd
 
-"""---payments_data---"""
-# print(payments_data.isna().sum())    # no null values found
+# path = r"C:/Users/Hp/Desktop/pds project work files/olist_order_reviews_dataset.csv"
 
-"""---reviews_data---"""
-# print(reviews_data.isna().sum())    # null values found in two coloums 'review_comment_title'; 'review_comment_message'
+# data = pd.read_csv(path)
 
-# dropping the two coloums with null values as we only need review scores not the commments, also, the comments are in brazlian language
+# df = data.dropna(axis = 0, how = 'any')
 
-#print(reviews_data.head())
+# print ("Old data frame length:", len(data), "\nNew data frame length:", len(df), "\nNumber of rows with atleast 1 NA value: ", (len(data)-len(df)))
 
-reviews_data = reviews_data.drop(["review_comment_title","review_comment_message"], axis='columns')
+# import pandas as pd
 
-#print(reviews_data.head())
+# path = r"C:/Users/Hp/Desktop/pds project work files/olist_orders_dataset.csv"
 
-# print(reviews_data.isna().sum())    # two columns with null values removed as we didn't need them
+# data = pd.read_csv(path)
 
-"""---orders_data---"""
-# print(orders_data.isna().sum())    # null values found in three coloums date, time colums
+# df = data.dropna(axis = 0, how = 'any')
 
-#  we shall be dropping rows with null values as they are negligible 2965 out of 99441 rows i.e. less than 3 percent
+# print ("Old data frame length:", len(data), "\nNew data frame length:", len(df), "\nNumber of rows with atleast 1 NA value: ", (len(data)-len(df)))
 
-# print(orders_data.shape) 
+# import pandas as pd
 
-orders_data.dropna(inplace=True)
+# path = r"C:/Users/Hp/Desktop/pds project work files/olist_products_dataset.csv"
 
-# print(orders_data.shape)
+# data = pd.read_csv(path)
 
-# print(orders_data.isna().sum())   # rows with null values removed as we didn't need them
+# df = data.dropna(axis = 0, how = 'any')
 
+# print ("Old data frame length:", len(data), "\nNew data frame length:", len(df), "\nNumber of rows with atleast 1 NA value: ", (len(data)-len(df)))
 
-"""---product_data---"""
-# print(product_data.isna().sum())    
-# null values in product_category_name, product_name_lenght, product_description_lenght, product_photos_qty, weight, length, height
 
-# where product name is missing, we shall use "Name not avaiable"
+# import pandas as pd
 
-product_data['product_category_name'] =  product_data['product_category_name'].fillna('Name not avaiable')
+# path = r"C:/Users/Hp/Desktop/pds project work files/olist_sellers_dataset.csv"
 
-# for other columns we shall fill with the mean of those columns
+# data = pd.read_csv(path)
 
-x = product_data["product_name_lenght"].mean()
-product_data["product_name_lenght"].fillna(x, inplace = True)
+# df = data.dropna(axis = 0, how = 'any')
 
-y = product_data["product_description_lenght"].mean()
-product_data["product_description_lenght"].fillna(y, inplace = True)
+# print ("Old data frame length:", len(data), "\nNew data frame length:", len(df), "\nNumber of rows with atleast 1 NA value: ", (len(data)-len(df)))
 
-z = product_data["product_photos_qty"].mean()
-product_data["product_photos_qty"].fillna(z, inplace = True)
+# import pandas as pd
 
+# path = r"C:/Users/Hp/Desktop/pds project work files/product_category_name_translation.csv"
 
-# for last three columns i.e. height, weight and lenght we shall drop null values, since there are only two rows with null values
+# data = pd.read_csv(path)
 
-product_data.dropna(inplace=True)
+# df = data.dropna(axis = 0, how = 'any')
 
-# print(product_data.isna().sum())   # null values dealt with
-
-
-"""---sellers_data---"""
-# print(sellers_data.isna().sum())     # no null values found
-
-"""---translation_data---"""
-
-# print(translation_data.isna().sum())     # no null values found
-
-# null values dealt with, in all data frames
-
-
-"""---dealing with duplicate values---"""
-
-
-"""---customer_data---"""
-# print(customer_data.duplicated().sum())  # no duplicates found
-
-"""---location_data---"""
-# print(location_data.duplicated().sum())        # duplicates found
-location_data.drop_duplicates(inplace = True)
-# print(location_data.duplicated().sum())     # duplicates removed
-
-
-"""---order_items_data---"""
-# print(order_items_data.duplicated().sum())    # no duplicates found
-
-"""---payments_data---"""
-# print(payments_data.duplicated().sum())      # no duplicates found
-
-"""---reviews_data---"""
-# print(reviews_data.duplicated().sum())    # no duplicates found
-
-"""---orders_data---"""
-# print(orders_data.duplicated().sum())    # no duplicates found
-
-"""---product_data---"""
-# print(product_data.duplicated().sum())    # no duplicates found
-
-"""---sellers_data---"""
-# print(sellers_data.duplicated().sum())      # no duplicates found
-
-"""---translation_data---"""
-# print(translation_data.duplicated().sum())       # no duplicates found
-
-# duplicates dealt with, in all data frames
-
-
-"""---standardization---"""
-
-"""---standardizing all date columns, converting them to datetime objects---"""
-
-
-reviews_data['review_answer_timestamp'] = pd.to_datetime(reviews_data['review_answer_timestamp'])
-order_items_data['shipping_limit_date'] = pd.to_datetime(order_items_data['shipping_limit_date'])
-orders_data['order_purchase_timestamp'] = pd.to_datetime(orders_data['order_purchase_timestamp'])
-orders_data['order_approved_at'] = pd.to_datetime(orders_data['order_approved_at'])
-orders_data['order_delivered_carrier_date'] = pd.to_datetime(orders_data['order_delivered_carrier_date'])
-orders_data['order_delivered_customer_date'] = pd.to_datetime(orders_data['order_delivered_customer_date'])
-orders_data['order_estimated_delivery_date'] = pd.to_datetime(orders_data['order_estimated_delivery_date'])
-
-# dates standardized in all data frames
-
-
-#ABDUL SAMAD
-
-"""INSIGHT NUMBER 1"""
-
-orders_data["approval_dur(Hrs)"] = np.where(orders_data["order_status"] != "canceled", 
-                                              (orders_data["order_approved_at"] - orders_data["order_purchase_timestamp"]).astype('timedelta64[h]'), 
-                                              np.nan)
-
-"""INSIGHT NUMBER 2"""
-
-
-# print(orders_data[orders_data['order_status'] == 'canceled']['order_status'])
-canceled_orders = orders_data[orders_data["order_status"] == "canceled"][["order_status", "approval_dur(Hrs)"]]
-# print(canceled_orders)
-
-
-"""INSIGHT NUMBER 3"""
-
-orders_data["purchase Vs delivered(Days)"] = np.where(orders_data["order_status"] == "delivered", 
-                                                      (pd.to_datetime(orders_data["order_delivered_customer_date"]) - pd.to_datetime(orders_data["order_purchase_timestamp"])).dt.days, 
-                                                      np.nan)
-
-# orders_data["Purchase Vs Delivered(Days)"] = orders_data["Purchase Vs Delivered(Days)"].dt.days
-
-orders_data["month"]=pd.DatetimeIndex(orders_data["order_purchase_timestamp"]).month
-orders_data["month"]=orders_data['month'].apply(lambda x: calendar.month_abbr[x])
-# print(orders_data["month"].head(12))
-
-print(customer_data.columns)
-print(location_data.columns)
-
-
-"""PLOT NUMBER 1"""
-
-# monthly_orders = orders_data.groupby('month')['order_id'].count().reset_index(name='total_orders')
-# # reset_index creates a new index column and renames the count column to 'total_orders'
-
-# ax = monthly_orders.plot.bar(x='month', y='total_orders', rot=0)
-
-# ax.set_title('Monthly Sales')
-# plt.show()
-
-"""PLOT NUMBER 2"""
-
-# ordersbystatus = orders_data.groupby('order_status')['order_id'].count().reset_index(name='totalorderbystatus')
-# print(ordersbystatus)
-# # reset_index creates a new index column and renames the count column to 'total_orders'
-
-# os = ordersbystatus.plot.bar(x='order_status', y='totalorderbystatus', rot=0)
-# os.set_title('total order by order status')
-# plt.show()
-
-"""MERGING DATA"""
-
-merged_data = pd.merge(orders_data, customer_data, on='customer_id')
-
-# print(merged_data)
-# top_cities_by_order = merged_data['customer_city'].value_counts().nlargest(5)
-# # print(top_cities_by_order)
-
-"""PLOT NUMBER 3"""
-# oc = top_cities_by_order.plot.bar(x='customer_city', y='top_cities_by_order', rot=0)
-# oc.set_title('Total orders by city')
-# plt.show()
-
-"""INSIGHT NUMBER 4"""
-merged_data_geo = pd.merge(customer_data, location_data, left_on='customer_zip_code_prefix', right_on='geolocation_zip_code_prefix')
-# grouped_data = merged_data_geo.groupby(['geolocation_lat', 'geolocation_lng']).agg({'customer_id': 'nunique'}).reset_index()
-
-
-# Ammar
-
-"""INSIGHT NUMBER 5"""
-
-#Customer Satisfaction Score = Sum of all Scores / Total Number of Respondents
-
-num_respondents = reviews_data['review_id'].count()
-
-sum_scores = reviews_data['review_score'].sum()
-
-customer_satisfaction_score = round(sum_scores/num_respondents)
-
-print('Customer Satisfaction Score:', customer_satisfaction_score)
-
-reviews_data = reviews_data.sort_values('review_answer_timestamp')
-
-# calculate the total score for each year
-yearly_scores = reviews_data.groupby(reviews_data['review_answer_timestamp'].dt.year)['review_score'].sum()
-
-# calculate the average score for each year
-yearly_average = reviews_data.groupby(reviews_data['review_answer_timestamp'].dt.year)['review_score'].mean().round(2)
-
-# print("Total score for each year:")
-# print(yearly_scores)
-# print("Average score for each year:")
-# print(yearly_average)
-
-"""PLOT NUMBER 4"""
-# Making a line plot with the average score for each year
-
-yearly_average.plot(kind='line')
-
-# set the title and axis labels
-plt.title('Average Score by Year')
-plt.xlabel('Year')
-plt.ylabel('Average Score')
-
-# show the plot
-plt.show()
-
-"""PLOT NUMBER 5"""
-# Making a bar plot for the average score of each year
-
-yearly_averages = {'2016':3.54, '2017':4.11, '2018':4.07}
-years = list(yearly_averages.keys())
-averages = list(yearly_averages.values())  
-bar_plot = plt.figure(figsize = (10, 5))
- 
-# creating the bar plot
-plt.bar(years, averages, color ='maroon',
-        width = 0.4)
- 
-plt.xlabel("Years")
-plt.ylabel("Average score")
-plt.title("Average score of each year")
-plt.show()
-
-
-"""INSIGHT NUMBER 6"""
-# Purchase Frequency = Total Number of Orders / Total Number of Unique Customers
-
-total_number_of_orders = orders_data['order_id'].count()
-
-num_of_uniq_cust = orders_data['customer_id'].nunique()
-
-purchase_frequency = total_number_of_orders / num_of_uniq_cust
-
-
+# print ("Old data frame length:", len(data), "\nNew data frame length:", len(df), "\nNumber of rows with atleast 1 NA value: ", (len(data)-len(df)))
