@@ -1,6 +1,5 @@
 
 name: "Dobby action"
-uses: simplybusiness/dobby@v3.5.0
 on:
   issue_comment:
     types: [created]
